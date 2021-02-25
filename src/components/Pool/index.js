@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Label from "components/ui/Label";
 import Value from "components/ui/Value";
 import Loader from "components/ui/Loader";
+import Badge from "components/ui/Badge";
 
 const Style = styled.div`
   display: flex;
@@ -14,6 +15,8 @@ const Style = styled.div`
   border-radius: var(--border-radius);
   background: var(--midnight);
   box-shadow: var(--box-shadow);
+  position: relative;
+  padding-bottom: 10px;
 `
 
 const Item = styled.div`
@@ -36,6 +39,26 @@ const Header = styled.div`
 
 const Content = styled.div`
   padding: 15px;
+`
+
+const LastUpdated = styled.div`
+  font-size: 10px;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+`
+
+const ListItem = styled.div`
+  width: calc((100% / 3) - 20px);
+  margin-bottom: 30px;
+`
+
+const LiveBadge = styled(Badge)`
+  width: 6px;
+  height: 6px;
+  margin-right: 4px;
 `
 
 const POLLING_INTERVAL = 1000 * 20;
@@ -66,7 +89,7 @@ const Pool = props => {
       const supplyPercent = balance / totalSupply;
       const rewardRatePerDay = (rewardRate * 60 * 60 * 24) * supplyPercent;
       
-      setStatus({ unclaimedRewards, rewardRatePerDay, supplyPercent, balance, loading: false });
+      setStatus({ unclaimedRewards, rewardRatePerDay, supplyPercent, balance, loading: false, lastUpdated: new Date() });
     }
 
     fetchPoolData();
@@ -83,27 +106,34 @@ const Pool = props => {
     return null;
 
   return (
-    <Style>
-      <Header>{props.stakingInfo.name || `${props.stakingInfo.tokens[0]} - ${props.stakingInfo.tokens[1]}`}</Header>
-      {status.loading ? (
-        <Loader />
-      ) : (
-        <Content>
-          <Item>
-            <Label>Unclaimed Rewards</Label> 
-            <Value>{formatter.symbol(status.unclaimedRewards, 'QUICK')} ({formatter.usd(status.unclaimedRewards * props.quickPrice)})</Value>
-          </Item>
-          <Item>
-            <Label>Reward Rate</Label>
-            <Value>{formatter.symbol(status.rewardRatePerDay, 'QUICK', { decimalPlaces: 4 })} / day ({formatter.usd(status.rewardRatePerDay * props.quickPrice)})</Value>
-          </Item>
-          <Item>
-            <Label>Supply Percent</Label>
-            <Value>{formatter.percentage(status.supplyPercent, { decimalPlaces: 2 })}</Value>
-          </Item>
-        </Content>
-      )}
-    </Style>
+    <ListItem>
+      <Style>
+        <Header>{props.stakingInfo.name || `${props.stakingInfo.tokens[0]} - ${props.stakingInfo.tokens[1]}`}</Header>
+        {status.loading ? (
+          <Loader />
+        ) : (
+          <Content>
+            <Item>
+              <Label>Unclaimed Rewards</Label> 
+              <Value>{formatter.symbol(status.unclaimedRewards, 'QUICK')} ({formatter.usd(status.unclaimedRewards * props.quickPrice)})</Value>
+            </Item>
+            <Item>
+              <Label>Reward Rate</Label>
+              <Value>{formatter.symbol(status.rewardRatePerDay, 'QUICK', { decimalPlaces: 4 })} / day ({formatter.usd(status.rewardRatePerDay * props.quickPrice)})</Value>
+            </Item>
+            <Item>
+              <Label>Supply Percent</Label>
+              <Value>{formatter.percentage(status.supplyPercent, { decimalPlaces: 2 })}</Value>
+            </Item>
+          </Content>
+        )}
+        {status.lastUpdated && (
+          <LastUpdated>
+            <LiveBadge dot color="var(--green)" pulsate /> Last Updated: {status.lastUpdated.toLocaleString()}
+          </LastUpdated>
+        )}
+      </Style>
+    </ListItem>
   )
 }
 

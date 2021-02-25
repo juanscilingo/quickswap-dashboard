@@ -46,9 +46,9 @@ const Loader = props => {
   return (
     <Container inline={props.inline}>
       <Style>
-        <Ball class="LoaderBalls__item"></Ball>
-        <Ball class="LoaderBalls__item"></Ball>
-        <Ball class="LoaderBalls__item"></Ball>
+        <Ball />
+        <Ball />
+        <Ball />
       </Style>
     </Container>
   )

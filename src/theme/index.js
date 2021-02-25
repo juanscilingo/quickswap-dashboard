@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     --dark-blue: #36507b;
     --midnight: #262c3c;
     --dark-midnight: #11141b;
-    --green: #66aaa9;
+    --green: #27ae60;
     --red: #e74c3c;
 
     --navbar-height: 70px;

@@ -1,6 +1,7 @@
 import coingecko from "api/coingecko";
 import Pool from "components/Pool";
 import Label from "components/ui/Label";
+import Loader from "components/ui/Loader";
 import Value from "components/ui/Value";
 import { STAKING_INFO_ACTIVE } from "constants/staking-info";
 import { useEffect, useState } from "react";
@@ -15,16 +16,12 @@ const List = styled.div`
   justify-content: space-between;
 `
 
-const ListItem = styled.div`
-  width: calc((100% / 3) - 20px);
-  margin-bottom: 30px;
-`
-
 const Price = styled.div`
   display: inline-block;
   background: var(--midnight);
   padding: 15px;
   border-radius: var(--border-radius);
+  margin-bottom: 30px;
 `
 
 const PoolList = props => {
@@ -48,14 +45,16 @@ const PoolList = props => {
     <div>
       <Price>
         <Label>Quick Price </Label>
-        <Value>{formatter.usd(quickPrice)}</Value>
+        <Value>
+          {quickPrice ? (
+            formatter.usd(quickPrice)
+          ) : (
+            <Loader />
+          )}
+        </Value>
       </Price>
       <List>
-        {STAKING_INFO_ACTIVE.map(stakingInfo => (
-          <ListItem key={stakingInfo.stakingRewardAddress}>
-            <Pool stakingInfo={stakingInfo} quickPrice={quickPrice} />
-          </ListItem>
-        ))}
+        {STAKING_INFO_ACTIVE.map(stakingInfo => <Pool key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} quickPrice={quickPrice} />)}
       </List>
     </div>
   )
