@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/quickswap-dashboard/static/js/main.733651d3.chunk.js",
-    "main.js.map": "/quickswap-dashboard/static/js/main.733651d3.chunk.js.map",
+    "main.js": "/quickswap-dashboard/static/js/main.85cfe253.chunk.js",
+    "main.js.map": "/quickswap-dashboard/static/js/main.85cfe253.chunk.js.map",
     "runtime-main.js": "/quickswap-dashboard/static/js/runtime-main.97d93f16.js",
     "runtime-main.js.map": "/quickswap-dashboard/static/js/runtime-main.97d93f16.js.map",
-    "static/js/2.29e3ec2f.chunk.js": "/quickswap-dashboard/static/js/2.29e3ec2f.chunk.js",
-    "static/js/2.29e3ec2f.chunk.js.map": "/quickswap-dashboard/static/js/2.29e3ec2f.chunk.js.map",
+    "static/js/2.0e1767c9.chunk.js": "/quickswap-dashboard/static/js/2.0e1767c9.chunk.js",
+    "static/js/2.0e1767c9.chunk.js.map": "/quickswap-dashboard/static/js/2.0e1767c9.chunk.js.map",
     "index.html": "/quickswap-dashboard/index.html",
-    "static/js/2.29e3ec2f.chunk.js.LICENSE.txt": "/quickswap-dashboard/static/js/2.29e3ec2f.chunk.js.LICENSE.txt"
+    "static/js/2.0e1767c9.chunk.js.LICENSE.txt": "/quickswap-dashboard/static/js/2.0e1767c9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.97d93f16.js",
-    "static/js/2.29e3ec2f.chunk.js",
-    "static/js/main.733651d3.chunk.js"
+    "static/js/2.0e1767c9.chunk.js",
+    "static/js/main.85cfe253.chunk.js"
   ]
 }
