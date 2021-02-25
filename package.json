@@ -2,7 +2,7 @@
   "name": "quick-dashboard",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://juanscilingo.github.io/quickswap-dashboard/.",
+  "homepage": "https://juanscilingo.github.io/quickswap-dashboard",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
