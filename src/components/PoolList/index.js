@@ -1,14 +1,13 @@
 import coingecko from "api/coingecko";
 import Balance from "components/Balance";
 import Pool from "components/Pool";
-import Label from "components/ui/Label";
 import Loader from "components/ui/Loader";
-import Value from "components/ui/Value";
-import { Token } from "../../constants";
-import { STAKING_INFO_ACTIVE } from "constants/staking-info";
+import { Token } from "utils/constants";
+import { STAKING_INFO_ACTIVE } from "utils/constants/staking-info";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import formatter from "utils/formatter";
+import Highlight from "components/ui/Highlight";
 
 const POLLING_INTERVAL = 1000 * 20;
 
@@ -16,15 +15,6 @@ const List = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-`
-
-const Price = styled.div`
-  display: inline-block;
-  background: var(--midnight);
-  padding: 15px;
-  border-radius: var(--border-radius);
-  margin-bottom: 30px;
-  margin-right: 15px;
 `
 
 const PoolList = props => {
@@ -46,22 +36,8 @@ const PoolList = props => {
 
   return (
     <div>
-      <Price>
-        <Label>QUICK Price </Label>
-        <Value>
-          {quickPrice ? (
-            formatter.usd(quickPrice)
-          ) : (
-            <Loader />
-          )}
-        </Value>
-      </Price>
-      <Price>
-        <Label>QUICK Balance</Label>
-        <Value>
-          <Balance token={Token.QUICK} price={quickPrice} />
-        </Value>
-      </Price>
+      <Highlight label="QUICK Price" value={quickPrice ? formatter.usd(quickPrice) : <Loader />} />
+      {Object.values(Token).map(token => <Balance token={token} price={token.symbol === 'QUICK' && quickPrice} />)}
       <List>
         {STAKING_INFO_ACTIVE.map(stakingInfo => <Pool key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} quickPrice={quickPrice} />)}
       </List>

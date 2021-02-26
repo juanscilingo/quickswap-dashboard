@@ -3,7 +3,8 @@ export const ChainId = {
 }
 
 export const Token = {
-  QUICK: { address: '0x831753DD7087CaC61aB5644b308642cc1c33Dc13', decimals: 18, symbol: 'QUICK', name: 'QuickSwap' }
+  QUICK: { address: '0x831753DD7087CaC61aB5644b308642cc1c33Dc13', decimals: 18, symbol: 'QUICK', name: 'QuickSwap' },
+  USDC: { address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', decimals: 6,  symbol:'USDC', name: 'USDC' }
 }
 // DAI: { address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063', decimals: 18, symbol: 'DAI', 'Dai Stablecoin')
 // USDC: { address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', decimals: 6,  symbol:'USDC', 'USDC')

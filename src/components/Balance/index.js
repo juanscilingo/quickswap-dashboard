@@ -3,7 +3,8 @@ import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import formatter from "utils/formatter";
-import ERC20_ABI from '../../constants/abis/erc20.json';
+import ERC20_ABI from 'utils/constants/abis/erc20.json';
+import Highlight from "components/ui/Highlight";
 
 const POLLING_INTERVAL = 1000 * 20;
 
@@ -30,7 +31,7 @@ const Balance = props => {
   if (!balance)
     return null;
   
-  return `${formatter.symbol(balance, props.token.symbol)} (${formatter.usd(balance * props.price)})`;
+  return <Highlight label={`${props.token.symbol} balance`} value={`${formatter.symbol(balance, props.token.symbol)} (${formatter.usd(balance * props.price)})`} />;
 }
 
 export default Balance;

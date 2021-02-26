@@ -2,7 +2,7 @@ import { useWeb3React } from '@web3-react/core';
 import PoolList from 'components/PoolList';
 import Navbar from 'components/ui/Navbar';
 import { injected } from 'connectors';
-import { ChainId } from '../../constants';
+import { ChainId } from '../../utils/constants';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 

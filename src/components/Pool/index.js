@@ -1,7 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import { ethers, utils } from 'ethers';
-import { STAKING_REWARDS_ABI } from "constants/abis/staking-rewards";
+import { STAKING_REWARDS_ABI } from "utils/constants/abis/staking-rewards";
 import formatter from "utils/formatter";
 import styled from "styled-components";
 import Label from "components/ui/Label";
