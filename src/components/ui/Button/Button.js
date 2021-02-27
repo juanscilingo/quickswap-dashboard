@@ -1,4 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const block = css`
+  width: 100%;
+`
 
 const StyledButton = styled.button`
   border: none;
@@ -8,10 +12,13 @@ const StyledButton = styled.button`
   background: var(--blue);
   cursor: pointer;
   outline: none;
+  user-select: none;
 
   :hover {
     background: var(--dark-blue);
   }
+
+  ${props => props.block && block}
 `
 
 const Button = props => {

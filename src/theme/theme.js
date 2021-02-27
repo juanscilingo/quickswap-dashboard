@@ -5,7 +5,8 @@ export const GlobalStyle = createGlobalStyle`
     --blue: #4467a0;
     --dark-blue: #36507b;
     --midnight: #262c3c;
-    --dark-midnight: #11141b;
+    --midnight-2: #1c212d;
+    --midnight-3: #11141b;
     --green: #27ae60;
     --red: #e74c3c;
 
@@ -16,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0px;
-    background: var(--dark-midnight);
+    background: var(--midnight-3);
     color: #9da9bb;
   }
   * {

@@ -4,10 +4,11 @@ import { ethers, utils } from 'ethers';
 import { STAKING_REWARDS_ABI } from "utils/constants/abis/staking-rewards";
 import formatter from "utils/formatter";
 import styled from "styled-components";
-import Label from "components/ui/Label";
-import Value from "components/ui/Value";
-import Loader from "components/ui/Loader";
-import Badge from "components/ui/Badge";
+import Label from "components/ui/Label/Label";
+import Value from "components/ui/Value/Value";
+import Loader from "components/ui/Loader/Loader";
+import Badge from "components/ui/Badge/Badge";
+import useUserContext from "hooks/useUserContext";
 
 const Style = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ const Item = styled.div`
 
 const Header = styled.div`
   height: 50px;
-  background: #1c212d;
+  background: var(--midnight-2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,11 +65,15 @@ const LiveBadge = styled(Badge)`
 const POLLING_INTERVAL = 1000 * 20;
 
 const Pool = props => {
-  const { account, library } = useWeb3React();
+  const { library } = useWeb3React();
+  const { user } = useUserContext();
   const [status, setStatus] = useState({ loading: true });
 
   useEffect(() => {
     const fetchPoolData = async () => {
+      if (!user.account)
+        return;
+        
       // const contract = new ethers.Contract('0xdC9232E2Df177d7a12FdFf6EcBAb114E2231198D', quickswapETHWBTCABI, library);
       const stake_contract = new ethers.Contract(props.stakingInfo.stakingRewardAddress, STAKING_REWARDS_ABI, library);
       // console.log('Contract', contract)
@@ -80,10 +85,10 @@ const Pool = props => {
       // console.log(utils.formatEther(await stake_contract.balanceOf(account)));
       // console.log(utils.formatEther(await stake_contract.earned(account)));
       const [unclaimedRewards, rewardRate, totalSupply, balance] = await Promise.all([
-        stake_contract.earned(account).then(utils.formatEther),
+        stake_contract.earned(user.account).then(utils.formatEther),
         stake_contract.rewardRate().then(utils.formatEther),
         stake_contract.totalSupply().then(utils.formatEther),
-        stake_contract.balanceOf(account).then(utils.formatEther)
+        stake_contract.balanceOf(user.account).then(utils.formatEther)
       ]);
 
       const supplyPercent = balance / totalSupply;
@@ -93,12 +98,12 @@ const Pool = props => {
     }
 
     fetchPoolData();
-    const interval = setInterval(fetchPoolData, POLLING_INTERVAL)
+    // const interval = setInterval(fetchPoolData, POLLING_INTERVAL)
 
-    return () => {
-      clearInterval(interval);
-    }
-  }, [account, library, props.stakingInfo]);
+    // return () => {
+    //   clearInterval(interval);
+    // }
+  }, [user.account, library, props.stakingInfo]);
 
   const isStaking = !!status?.balance && status.balance !== '0.0';
 

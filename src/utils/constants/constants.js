@@ -45,3 +45,5 @@ export const Token = {
 // SWAP: { address: '0x3809dcDd5dDe24B37AbE64A5a339784c3323c44F', decimals: 18, symbol: 'SWAP', 'TrustSwap Token')
 // DB: { address: '0x0e59D50adD2d90f5111aca875baE0a72D95B4762', decimals: 18, symbol: 'DB', 'Dark.Build')
 // ZUT: { address: '0xe86E8beb7340659DDDCE61727E500e3A5aD75a90', decimals: 18, symbol: 'ZUT', 'ZeroUtility')
+
+export const NETWORK_CONTEXT_NAME = 'NETWORK';

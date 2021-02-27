@@ -1,9 +1,8 @@
+import WalletButton from "components/WalletButton/WalletButton"
+import useUserContext from "hooks/useUserContext"
+import styled from "styled-components"
 import formatter from "utils/formatter"
-import Badge from "../Badge"
-
-const { useWeb3React } = require("@web3-react/core")
-const { default: ConnectButton } = require("components/Metamask/ConnectButton")
-const { default: styled } = require("styled-components")
+import Badge from "../Badge/Badge"
 
 const Style = styled.div`
   position: fixed;
@@ -12,6 +11,7 @@ const Style = styled.div`
   background: var(--midnight);
   width: 100%;
   box-shadow: var(--box-shadow);
+  z-index: 1;
 `
 
 const Content = styled.div`
@@ -35,19 +35,19 @@ const Item = styled.div`
 `
 
 const Navbar = () => {
-  const web3React = useWeb3React();
+  const { user } = useUserContext();
 
   return (
     <Style>
       <Content>
         <Logo>QUICKSWAP</Logo>
-        {web3React.account && (
+        {user.account && (
           <Item>
-            <Badge>{formatter.trimmedAddress(web3React.account)}</Badge>
+            <Badge>{formatter.trimmedAddress(user.account)}</Badge>
           </Item>
         )}
         <Item>
-          <ConnectButton />
+          <WalletButton />
         </Item>
       </Content>
     </Style>

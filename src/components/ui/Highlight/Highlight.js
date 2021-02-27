@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Label from "../Label";
-import Value from "../Value";
+import Label from "../Label/Label";
+import Value from "../Value/Value";
 
 const Style = styled.div`
   display: inline-block;

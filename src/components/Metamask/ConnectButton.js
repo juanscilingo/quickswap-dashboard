@@ -1,7 +1,7 @@
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core";
-import Badge from "components/ui/Badge";
-import Button from "components/ui/Button";
-import { injected } from 'connectors';
+import Badge from "components/ui/Badge/Badge";
+import Button from "components/ui/Button/Button";
+import { injected } from 'connectors/connectors';
 
 const ConnectButton = props => {
   const web3React = useWeb3React();
