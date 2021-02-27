@@ -70,9 +70,10 @@ const Pool = props => {
   const [status, setStatus] = useState({ loading: true });
 
   useEffect(() => {
+    if (!user.account)
+      return;
+
     const fetchPoolData = async () => {
-      if (!user.account)
-        return;
         
       // const contract = new ethers.Contract('0xdC9232E2Df177d7a12FdFf6EcBAb114E2231198D', quickswapETHWBTCABI, library);
       const stake_contract = new ethers.Contract(props.stakingInfo.stakingRewardAddress, STAKING_REWARDS_ABI, library);
@@ -98,11 +99,11 @@ const Pool = props => {
     }
 
     fetchPoolData();
-    // const interval = setInterval(fetchPoolData, POLLING_INTERVAL)
+    const interval = setInterval(fetchPoolData, POLLING_INTERVAL)
 
-    // return () => {
-    //   clearInterval(interval);
-    // }
+    return () => {
+      clearInterval(interval);
+    }
   }, [user.account, library, props.stakingInfo]);
 
   const isStaking = !!status?.balance && status.balance !== '0.0';

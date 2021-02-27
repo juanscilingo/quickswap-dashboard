@@ -16,11 +16,11 @@ const Balance = props => {
   const [balance, setBalance] = useState();
 
   useEffect(() => {
+    if (!user.account)
+      return;
+
     const fetchBalance = async () => {
       try {
-        if (!user.account)
-          return;
-
         const contract = new ethers.Contract(props.token.address, ERC20_ABI, library);
         const balance = await contract.balanceOf(user.account);
 
