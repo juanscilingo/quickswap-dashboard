@@ -14,7 +14,6 @@ const POLLING_INTERVAL = 1000 * 20;
 const List = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 `
 
 const PoolList = props => {
