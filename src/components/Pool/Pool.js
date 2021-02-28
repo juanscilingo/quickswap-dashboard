@@ -2,6 +2,7 @@ import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import { ethers, utils } from 'ethers';
 import { STAKING_REWARDS_ABI } from "utils/constants/abis/staking-rewards";
+import PAIR_ABI from 'utils/constants/abis/pair.json'
 import formatter from "utils/formatter";
 import styled from "styled-components";
 import Label from "components/ui/Label/Label";
@@ -9,6 +10,9 @@ import Value from "components/ui/Value/Value";
 import Loader from "components/ui/Loader/Loader";
 import Badge from "components/ui/Badge/Badge";
 import useUserContext from "hooks/useUserContext";
+import { TOKENS } from "utils/constants/constants";
+import { getPairAddress } from "utils/constants/pair_addresses";
+import { convertTokenDecimals } from "utils/number";
 
 const Style = styled.div`
   display: flex;
@@ -74,17 +78,31 @@ const Pool = props => {
       return;
 
     const fetchPoolData = async () => {
-        
-      // const contract = new ethers.Contract('0xdC9232E2Df177d7a12FdFf6EcBAb114E2231198D', quickswapETHWBTCABI, library);
       const stake_contract = new ethers.Contract(props.stakingInfo.stakingRewardAddress, STAKING_REWARDS_ABI, library);
-      // console.log('Contract', contract)
-      // console.log(await contract.balanceOf(account))
-      // console.log(utils.formatEther(await contract.totalSupply()))
-      // console.log(await contract.token0())
-      // console.log(await contract.token1())
-      // console.log(stake_contract);
-      // console.log(utils.formatEther(await stake_contract.balanceOf(account)));
-      // console.log(utils.formatEther(await stake_contract.earned(account)));
+
+      let tokenReserves;
+      const token1 = TOKENS[props.stakingInfo.tokens[0]];
+      const token2 = TOKENS[props.stakingInfo.tokens[1]];
+
+      if (token1 && token2 && !token1.equals(token2)) {
+        const tokenA = token1.sortsBefore(token2) ? token1 : token2;
+        const tokenB = token1.sortsBefore(token2) ? token2: token1;
+
+        try {
+          const pair_address = getPairAddress(tokenA, tokenB);
+          console.log(pair_address, tokenA.symbol, tokenB.symbol)
+
+          const pair_contract = new ethers.Contract(pair_address, PAIR_ABI.abi, library);
+          const reserves = await pair_contract.getReserves();
+          const reservesTokenA = convertTokenDecimals(reserves[0], tokenA);
+          const reservesTokenB = convertTokenDecimals(reserves[1], tokenB);
+
+          tokenReserves = [reservesTokenA, reservesTokenB]
+        } catch (err) {
+          console.log(err)
+        }
+      }
+
       const [unclaimedRewards, rewardRate, totalSupply, balance] = await Promise.all([
         stake_contract.earned(user.account).then(utils.formatEther),
         stake_contract.rewardRate().then(utils.formatEther),
@@ -95,7 +113,15 @@ const Pool = props => {
       const supplyPercent = balance / totalSupply;
       const rewardRatePerDay = (rewardRate * 60 * 60 * 24) * supplyPercent;
       
-      setStatus({ unclaimedRewards, rewardRatePerDay, supplyPercent, balance, loading: false, lastUpdated: new Date() });
+      setStatus({ 
+        unclaimedRewards, 
+        rewardRatePerDay, 
+        supplyPercent, 
+        balance, 
+        loading: false, 
+        lastUpdated: new Date(),
+        reserves: tokenReserves
+      });
     }
 
     fetchPoolData();
@@ -114,7 +140,7 @@ const Pool = props => {
   return (
     <ListItem>
       <Style>
-        <Header>{props.stakingInfo.name || `${props.stakingInfo.tokens[0]} - ${props.stakingInfo.tokens[1]}`}</Header>
+        <Header>{`${props.stakingInfo.tokens[0]} - ${props.stakingInfo.tokens[1]}`}</Header>
         {status.loading ? (
           <Loader />
         ) : (
@@ -131,6 +157,26 @@ const Pool = props => {
               <Label>Supply Percent</Label>
               <Value>{formatter.percentage(status.supplyPercent, { decimalPlaces: 2 })}</Value>
             </Item>
+            {status.reserves && (
+              <>
+                <Item>
+                  <Label>Your {props.stakingInfo.tokens[0]} Deposits</Label>
+                  <Value>{formatter.symbol(status.reserves[0] * status.supplyPercent, props.stakingInfo.tokens[0], { decimalPlaces: 4 })}</Value>
+                </Item>
+                <Item>
+                  <Label>Your {props.stakingInfo.tokens[1]} Deposits</Label>
+                  <Value>{formatter.symbol(status.reserves[1] * status.supplyPercent, props.stakingInfo.tokens[1], { decimalPlaces: 4 })}</Value>
+                </Item>
+                <Item>
+                  <Label>Pool {props.stakingInfo.tokens[0]} Deposits</Label>
+                  <Value>{formatter.symbol(status.reserves[0], props.stakingInfo.tokens[0], { decimalPlaces: 2 })}</Value>
+                </Item>
+                <Item>
+                  <Label> Pool {props.stakingInfo.tokens[1]} Deposits</Label>
+                  <Value>{formatter.symbol(status.reserves[1], props.stakingInfo.tokens[1], { decimalPlaces: 2 })}</Value>
+                </Item>
+              </>
+            )}
           </Content>
         )}
         {status.lastUpdated && (

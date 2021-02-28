@@ -2,7 +2,7 @@ import coingecko from "api/coingecko";
 import Balance from "components/Balance/Balance";
 import Pool from "components/Pool/Pool";
 import Loader from "components/ui/Loader/Loader";
-import { Token } from "utils/constants/constants";
+import { BALANCE_TOKENS } from "utils/constants/constants";
 import { STAKING_INFO_ACTIVE } from "utils/constants/staking-info";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -37,7 +37,7 @@ const PoolList = props => {
   return (
     <div>
       <Highlight label="QUICK Price" value={quickPrice ? formatter.usd(quickPrice) : <Loader />} />
-      {Object.values(Token).map(token => <Balance key={token.symbol} token={token} price={token.symbol === 'QUICK' && quickPrice} />)}
+      {BALANCE_TOKENS.filter(t => !t.hideBalance).map(token => <Balance key={token.symbol} token={token} price={token.symbol === 'QUICK' && quickPrice} />)}
       <List>
         {STAKING_INFO_ACTIVE.map(stakingInfo => <Pool key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} quickPrice={quickPrice} />)}
       </List>

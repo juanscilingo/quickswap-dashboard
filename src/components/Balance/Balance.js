@@ -10,6 +10,8 @@ import errorHandler from "utils/errorHandler";
 
 const POLLING_INTERVAL = 1000 * 20;
 
+const getDollarPrice = (balance, price) => price ? ` (${formatter.usd(balance * price)})` : ''
+
 const Balance = props => {
   const { library } = useWeb3React();
   const { user } = useUserContext();
@@ -41,7 +43,7 @@ const Balance = props => {
   if (!balance)
     return null;
   
-  return <Highlight label={`${props.token.symbol} balance`} value={`${formatter.symbol(balance, props.token.symbol)} (${formatter.usd(balance * props.price)})`} />;
+  return <Highlight label={`${props.token.symbol} balance`} value={`${formatter.symbol(balance, props.token.symbol)}${getDollarPrice(balance, props.price)}`} />;
 }
 
 export default Balance;
