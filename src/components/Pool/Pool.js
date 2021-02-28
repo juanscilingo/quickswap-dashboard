@@ -57,12 +57,8 @@ const LastUpdated = styled.div`
 
 const ListItem = styled.div`
   width: calc((100% / 3) - 20px);
-  margin-right: 30px;
+  margin-right: 20px;
   margin-bottom: 30px;
-
-  &:last-child {
-    margin-right: 0px;
-  }
 `
 
 const LiveBadge = styled(Badge)`
