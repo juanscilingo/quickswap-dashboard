@@ -3,7 +3,7 @@ import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import formatter from "utils/formatter";
-import ERC20_ABI from 'utils/constants/abis/erc20.json';
+import ERC20_ABI from 'utils/constants/abis/erc20.js';
 import Highlight from "components/ui/Highlight/Highlight";
 import useUserContext from "hooks/useUserContext";
 import errorHandler from "utils/errorHandler";

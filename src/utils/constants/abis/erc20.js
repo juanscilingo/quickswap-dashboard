@@ -1,4 +1,4 @@
-[
+const ERC20_ABI = [
   {
     "constant": true,
     "inputs": [],
@@ -115,3 +115,5 @@
     "type": "event"
   }
 ]
+
+export default ERC20_ABI;
