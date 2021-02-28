@@ -2,7 +2,7 @@ import { useWeb3React } from "@web3-react/core";
 import Button from "components/ui/Button/Button";
 import Input from "components/ui/Input/Input";
 import Modal from "components/ui/Modal/Modal";
-import { network } from 'connectors/connectors';
+import { CONNECTORS_KEYS, network } from 'connectors/connectors';
 import useUserContext from "hooks/useUserContext";
 import { useState } from "react";
 import styled from "styled-components";
@@ -40,14 +40,14 @@ const InputModal = props => {
   )
 }
 
-const MetamaskButton = props => {
+const CustomAddressButton = props => {
   const web3React = useWeb3React();
   const { setUser } = useUserContext();
   const [open, setOpen] = useState(false);
 
   const activate = async account => {
     await web3React.activate(network, errorHandler);
-    setUser(prevState => ({ ...prevState, account, provider: 'network' }));
+    setUser(prevState => ({ ...prevState, account, connector: CONNECTORS_KEYS.network }));
     props.close();
   }
 
@@ -63,4 +63,4 @@ const MetamaskButton = props => {
   )
 }
 
-export default MetamaskButton;
+export default CustomAddressButton;
