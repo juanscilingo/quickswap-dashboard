@@ -1,6 +1,6 @@
 import { useWeb3React } from "@web3-react/core";
 import Button from "components/ui/Button/Button";
-import { injected } from 'connectors/connectors';
+import { CONNECTORS_KEYS, injected } from 'connectors/connectors';
 import useUserContext from "hooks/useUserContext";
 import { useEffect } from "react";
 import errorHandler from "utils/errorHandler";
@@ -17,7 +17,7 @@ const MetamaskButton = props => {
 
   useEffect(() => {
     if (web3React.connector === injected) {
-      setUser(prevState => ({ ...prevState, account: web3React.account, provider: 'metamask' }));
+      setUser(prevState => ({ ...prevState, account: web3React.account, connector: CONNECTORS_KEYS.injected }));
     }
   }, [web3React.active, web3React.connector, setUser, web3React.account])
 

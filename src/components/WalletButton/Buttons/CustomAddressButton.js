@@ -5,12 +5,25 @@ import Modal from "components/ui/Modal/Modal";
 import { network } from 'connectors/connectors';
 import useUserContext from "hooks/useUserContext";
 import { useState } from "react";
+import styled from "styled-components";
 import errorHandler from "utils/errorHandler";
 
+const LAST_ADDRESS_KEY = 'custom-address-last';
+
+const AddressInput = styled(Input)`
+  min-width: 330px;
+`
+const OkButton = styled(Button)`
+  margin-left: auto;
+  display: block;
+`
+
 const InputModal = props => {
-  const [text, setText] = useState('');
+  const lastAddress = window.localStorage.getItem(LAST_ADDRESS_KEY);
+  const [text, setText] = useState(lastAddress ?? '');
 
   const onOk = () => {
+    window.localStorage.setItem(LAST_ADDRESS_KEY, text);
     props.onOk(text);
     props.onClose();
   }
@@ -21,8 +34,8 @@ const InputModal = props => {
       zIndex={12}
       {...props}
     >
-      <Input value={text} onChange={e => setText(e.target.value)} block />
-      <Button onClick={onOk}>Ok</Button>
+      <AddressInput value={text} onChange={e => setText(e.target.value)} block />
+      <OkButton onClick={onOk}>Ok</OkButton>
     </Modal>
   )
 }
