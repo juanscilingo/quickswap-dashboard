@@ -90,8 +90,6 @@ const Pool = props => {
 
         try {
           const pair_address = getPairAddress(tokenA, tokenB);
-          console.log(pair_address, tokenA.symbol, tokenB.symbol)
-
           const pair_contract = new ethers.Contract(pair_address, PAIR_ABI.abi, library);
           const reserves = await pair_contract.getReserves();
           const reservesTokenA = convertTokenDecimals(reserves[0], tokenA);
