@@ -49,6 +49,14 @@ const ListItem = styled.div`
   width: calc((100% / 3) - 20px);
   margin-right: 20px;
   margin-bottom: 30px;
+
+  @media(max-width: 1200px) {
+    width: calc((100% / 2) - 20px);
+  }
+  @media(max-width: 800px) {
+    width: 100%;
+    margin-right: 0px;
+  }
 `
 
 const LiveBadge = styled(Badge)`

@@ -4,7 +4,7 @@ import Pool from "components/Pool/Pool";
 import Loader from "components/ui/Loader/Loader";
 import { BALANCE_TOKENS, QUICK, QUICKSWAP_FACTORY_ADDRESS } from "utils/constants/constants";
 import { STAKING_INFO_ACTIVE } from "utils/constants/staking-info";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import formatter from "utils/formatter";
 import Highlight from "components/ui/Highlight/Highlight";
@@ -18,7 +18,11 @@ import { convertTokenDecimals } from "utils/number";
 
 const POLLING_INTERVAL = 1000 * 20;
 
-const List = styled.div`
+const Style = styled.div`
+
+`
+
+const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
 `
@@ -28,6 +32,7 @@ const PoolList = props => {
   const [data, setData] = useState(null);
   const { library } = useWeb3React();
   const { user } = useUserContext();
+  const factory_contract = useMemo(() => new ethers.Contract(QUICKSWAP_FACTORY_ADDRESS, QUICKSWAP_FACTORY_ABI, library), [library]);
 
   useEffect(() => {
     const fetchQuickPrice = async () => {
@@ -49,7 +54,6 @@ const PoolList = props => {
 
     const fetchPoolData = async stakingInfo => {
       const stake_contract = new ethers.Contract(stakingInfo.stakingRewardAddress, STAKING_REWARDS_ABI, library);
-      const factory_contract = new ethers.Contract(QUICKSWAP_FACTORY_ADDRESS, QUICKSWAP_FACTORY_ABI, library);
 
       let tokenReserves;
       let poolTotalSupply;
@@ -120,21 +124,25 @@ const PoolList = props => {
     return () => {
       clearInterval(interval);
     }
-  }, [user.account, library]);
+  }, [user.account, library, factory_contract]);
 
   if (!data)
     return <Loader />
 
   return (
-    <div>
-      <Highlight label="QUICK Price" value={quickPrice ? formatter.usd(quickPrice) : <Loader />} />
-      <Highlight label="Unclaimed Rewards" value={`${formatter.symbol(data.highlights.unclaimedRewards, 'QUICK')} (${formatter.usd(data.highlights.unclaimedRewards * quickPrice)})`} />
-      <Highlight label="Reward Rate" value={`${formatter.symbol(data.highlights.rewardRatePerDay, 'QUICK')} / day (${formatter.usd(data.highlights.rewardRatePerDay * quickPrice)})`} />
-      {BALANCE_TOKENS.filter(t => !t.hideBalance).map(token => <Balance key={token.symbol} token={token} price={token.symbol === 'QUICK' && quickPrice} />)}
-      <List>
+    <Style>
+      <Row>
+        <Highlight label="QUICK Price" value={quickPrice ? formatter.usd(quickPrice) : <Loader />} />
+        <Highlight label="Unclaimed Rewards" value={`${formatter.symbol(data.highlights.unclaimedRewards, 'QUICK')} (${formatter.usd(data.highlights.unclaimedRewards * quickPrice)})`} />
+        <Highlight label="Reward Rate" value={`${formatter.symbol(data.highlights.rewardRatePerDay, 'QUICK')} / day (${formatter.usd(data.highlights.rewardRatePerDay * quickPrice)})`} />
+      </Row>
+      <Row>
+        {BALANCE_TOKENS.filter(t => !t.hideBalance).map(token => <Balance key={token.symbol} token={token} price={token.symbol === 'QUICK' && quickPrice} />)}
+      </Row>
+      <Row>
         {data.pools.map(pool => <Pool key={pool.address} pool={pool} quickPrice={quickPrice} />)}
-      </List>
-    </div>
+      </Row>
+    </Style>
   )
 }
 
