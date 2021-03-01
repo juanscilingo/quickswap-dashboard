@@ -107,7 +107,8 @@ const PoolList = props => {
     const fetchPoolsData = async () => {
       const pools = await Promise.all(STAKING_INFO_ACTIVE.map(fetchPoolData));
       const highlights = {
-        unclaimedRewards: pools.reduce((acc, pool) => acc + pool.unclaimedRewards, 0)
+        unclaimedRewards: pools.reduce((acc, pool) => acc + pool.unclaimedRewards, 0),
+        rewardRatePerDay: pools.reduce((acc, pool) => acc + pool.rewardRatePerDay, 0)
       }
 
       setData({ pools, highlights });
@@ -128,6 +129,7 @@ const PoolList = props => {
     <div>
       <Highlight label="QUICK Price" value={quickPrice ? formatter.usd(quickPrice) : <Loader />} />
       <Highlight label="Unclaimed Rewards" value={`${formatter.symbol(data.highlights.unclaimedRewards, 'QUICK')} (${formatter.usd(data.highlights.unclaimedRewards * quickPrice)})`} />
+      <Highlight label="Reward Rate" value={`${formatter.symbol(data.highlights.rewardRatePerDay, 'QUICK')} / day (${formatter.usd(data.highlights.rewardRatePerDay * quickPrice)})`} />
       {BALANCE_TOKENS.filter(t => !t.hideBalance).map(token => <Balance key={token.symbol} token={token} price={token.symbol === 'QUICK' && quickPrice} />)}
       <List>
         {data.pools.map(pool => <Pool key={pool.address} pool={pool} quickPrice={quickPrice} />)}
