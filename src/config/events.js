@@ -9,7 +9,7 @@ const IGNORED_ERROR_CODES = [
 const configureGlobalErrorHandler = () => {
   if ('onunhandledrejection' in window)
     window.onunhandledrejection = e => { 
-      if (IGNORED_REASONS.includes(e?.reason?.reason) || IGNORED_ERROR_CODES.includes(e?.reason?.code))
+      if (IGNORED_REASONS.includes(e?.reason?.reason) || IGNORED_ERROR_CODES.includes(e?.reason?.code ?? e.code))
         return;
 
       console.log('Unhandled Error', e)
