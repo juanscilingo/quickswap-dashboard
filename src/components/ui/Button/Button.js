@@ -4,6 +4,11 @@ const block = css`
   width: 100%;
 `
 
+const small = css`
+  padding: 3px 6px;
+  font-size: 12px;
+`
+
 const StyledButton = styled.button`
   border: none;
   padding: 10px 15px;
@@ -18,7 +23,8 @@ const StyledButton = styled.button`
     background: var(--dark-blue);
   }
 
-  ${props => props.block && block}
+  ${props => props.block && block};
+  ${props => props.small && small};
 `
 
 const Button = props => {

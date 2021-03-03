@@ -4,14 +4,14 @@ import Input from "components/ui/Input/Input";
 import Modal from "components/ui/Modal/Modal";
 import { CONNECTORS_KEYS, network } from 'connectors/connectors';
 import useUserContext from "hooks/useUserContext";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import errorHandler from "utils/errorHandler";
 
 const LAST_ADDRESS_KEY = 'custom-address-last';
 
 const AddressInput = styled(Input)`
-  min-width: 330px;
+  min-width: 385px;
 `
 const OkButton = styled(Button)`
   margin-left: auto;
@@ -21,6 +21,14 @@ const OkButton = styled(Button)`
 const InputModal = props => {
   const lastAddress = window.localStorage.getItem(LAST_ADDRESS_KEY);
   const [text, setText] = useState(lastAddress ?? '');
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (props.open && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [props.open])
 
   const onOk = () => {
     window.localStorage.setItem(LAST_ADDRESS_KEY, text);
@@ -34,7 +42,7 @@ const InputModal = props => {
       zIndex={12}
       {...props}
     >
-      <AddressInput value={text} onChange={e => setText(e.target.value)} block />
+      <AddressInput ref={inputRef} value={text} onChange={e => setText(e.target.value)} block />
       <OkButton onClick={onOk}>Ok</OkButton>
     </Modal>
   )
