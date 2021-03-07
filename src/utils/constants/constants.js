@@ -51,6 +51,12 @@ export const PPDEX  = new Token(ChainId.MATIC, '0x127984b5E6d5c59f81DACc9F1C8b3B
 export const MATIC = new Token(ChainId.MATIC, '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270', 18, 'WMATIC', 'Wrapped Matic')
 export const ETH = new Token(ChainId.MATIC, '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619', 18, 'ETH', 'Ether')
 export const UNI = new Token(ChainId.MATIC, '0x831753DD7087CaC61aB5644b308642cc1c33Dc13', 18, 'QUICKk', 'Quickswap')
+export const CEL  = new Token(ChainId.MATIC, '0xd85d1e945766fea5eda9103f918bd915fbca63e6', 4, 'CEL', 'Celsius')
+export const ARIA20  = new Token(ChainId.MATIC, '0x46F48FbdedAa6F5500993BEDE9539ef85F4BeE8e', 18, 'ARIA20', 'ARIANEE')
+export const CFI  = new Token(ChainId.MATIC, '0xeCf8f2FA183b1C4d2A269BF98A54fCe86C812d3e', 18, 'CFI', 'CyberFi Token')
+export const DSLA  = new Token(ChainId.MATIC, '0xa0E390e9ceA0D0e8cd40048ced9fA9EA10D71639', 18, 'DSLA', 'DSLA')
+export const DRC  = new Token(ChainId.MATIC, '0xFeD16c746CB5BFeD009730f9E3e6A673006105c7', 0, 'DRC', 'Digital Reserve Currency')
+export const LINK  = new Token(ChainId.MATIC, '0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39', 0, 'LINK', 'Chainlink Token')
 
 export const BALANCE_TOKENS = [QUICK, USDC];
 
