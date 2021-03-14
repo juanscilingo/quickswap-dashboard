@@ -57,6 +57,13 @@ export const CFI  = new Token(ChainId.MATIC, '0xeCf8f2FA183b1C4d2A269BF98A54fCe8
 export const DSLA  = new Token(ChainId.MATIC, '0xa0E390e9ceA0D0e8cd40048ced9fA9EA10D71639', 18, 'DSLA', 'DSLA')
 export const DRC  = new Token(ChainId.MATIC, '0xFeD16c746CB5BFeD009730f9E3e6A673006105c7', 0, 'DRC', 'Digital Reserve Currency')
 export const LINK  = new Token(ChainId.MATIC, '0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39', 0, 'LINK', 'Chainlink Token')
+export const SUPER  = new Token(ChainId.MATIC, '0xa1428174F516F527fafdD146b883bB4428682737', 18, 'SUPER', 'SuperFarm')
+export const XMARK  = new Token(ChainId.MATIC, '0xf153eff70dc0bf3b085134928daeea248d9b30d0', 9, 'xMARK', 'Standard')
+export const DEFI5  = new Token(ChainId.MATIC, '0x42435F467D33e5C4146a4E8893976ef12BBCE762', 18, 'DEFI5', 'DEFI Top 5 Tokens Index')
+export const AZUKI  = new Token(ChainId.MATIC, '0x7CdC0421469398e0F3aA8890693d86c840Ac8931', 18, 'AZUKI', 'DokiDokiAzuki')
+export const HH  = new Token(ChainId.MATIC, '0x521CddC0CBa84F14c69C1E99249F781AA73Ee0BC', 18, 'HH', 'Holyheld')
+export const MDEF  = new Token(ChainId.MATIC, '0x82B6205002ecd05e97642D38D61e2cFeaC0E18cE', 9, 'mDEF', 'Matic Deflect Protocol')
+export const DMT  = new Token(ChainId.MATIC, '0xd28449BB9bB659725aCcAd52947677ccE3719fD7', 18, 'DMT', 'Dark Matter Token')
 
 export const BALANCE_TOKENS = [QUICK, USDC];
 
