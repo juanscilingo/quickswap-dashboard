@@ -64,6 +64,7 @@ export const AZUKI  = new Token(ChainId.MATIC, '0x7CdC0421469398e0F3aA8890693d86
 export const HH  = new Token(ChainId.MATIC, '0x521CddC0CBa84F14c69C1E99249F781AA73Ee0BC', 18, 'HH', 'Holyheld')
 export const MDEF  = new Token(ChainId.MATIC, '0x82B6205002ecd05e97642D38D61e2cFeaC0E18cE', 9, 'mDEF', 'Matic Deflect Protocol')
 export const DMT  = new Token(ChainId.MATIC, '0xd28449BB9bB659725aCcAd52947677ccE3719fD7', 18, 'DMT', 'Dark Matter Token')
+export const DEGEN  = new Token(ChainId.MATIC, '0x8a2870fb69A90000D6439b7aDfB01d4bA383A415', 18, 'DEGEN', 'DEGEN Index')
 
 export const BALANCE_TOKENS = [QUICK, USDC];
 
