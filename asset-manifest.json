@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/quickswap-dashboard/static/js/main.e8607797.chunk.js",
-    "main.js.map": "/quickswap-dashboard/static/js/main.e8607797.chunk.js.map",
+    "main.js": "/quickswap-dashboard/static/js/main.8ab76f0e.chunk.js",
+    "main.js.map": "/quickswap-dashboard/static/js/main.8ab76f0e.chunk.js.map",
     "runtime-main.js": "/quickswap-dashboard/static/js/runtime-main.97d93f16.js",
     "runtime-main.js.map": "/quickswap-dashboard/static/js/runtime-main.97d93f16.js.map",
     "static/js/2.35f531a9.chunk.js": "/quickswap-dashboard/static/js/2.35f531a9.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.97d93f16.js",
     "static/js/2.35f531a9.chunk.js",
-    "static/js/main.e8607797.chunk.js"
+    "static/js/main.8ab76f0e.chunk.js"
   ]
 }
