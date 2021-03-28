@@ -66,6 +66,12 @@ export const MDEF  = new Token(ChainId.MATIC, '0x82B6205002ecd05e97642D38D61e2cF
 export const DMT  = new Token(ChainId.MATIC, '0xd28449BB9bB659725aCcAd52947677ccE3719fD7', 18, 'DMT', 'Dark Matter Token')
 export const DEGEN  = new Token(ChainId.MATIC, '0x8a2870fb69A90000D6439b7aDfB01d4bA383A415', 18, 'DEGEN', 'DEGEN Index')
 
+export const MONA  = new Token(ChainId.MATIC, '0x6968105460f67c3BF751bE7C15f92F5286Fd0CE5', 18, 'MONA', 'Monavale')
+export const WISE  = new Token(ChainId.MATIC, '0xB77e62709e39aD1cbeEBE77cF493745AeC0F453a', 18, 'WISE', 'Wise Token')
+export const CC10  = new Token(ChainId.MATIC, '0x9c49BA0212Bb5Db371e66b59D1565b7c06E4894e', 18, 'CC10', 'Cryptocurrency Top Tokens Index')
+export const MOCEAN  = new Token(ChainId.MATIC, '0x282d8efCe846A88B159800bd4130ad77443Fa1A1', 18, 'mOCEAN', 'Ocean Token')
+export const ZUZ  = new Token(ChainId.MATIC, '0x232eaB56c4fB3f84c6Fb0a50c087c74b7B43c6Ad', 18, 'ZUZ', 'Zeus')
+
 export const BALANCE_TOKENS = [QUICK, USDC];
 
 export const NETWORK_CONTEXT_NAME = 'NETWORK';
